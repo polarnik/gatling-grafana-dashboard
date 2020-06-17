@@ -22,7 +22,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 9,
-  "iteration": 1592386976157,
+  "iteration": 1592398267296,
   "links": [],
   "panels": [
     {
@@ -58,7 +58,7 @@
           "link": true,
           "linkTargetBlank": true,
           "linkTooltip": "",
-          "linkUrl": "/d/gatlingNew/gatling-report-new?time=${__cell}&time.window=${__cell_2}000&var-g=${__cell_3}s&var-duration_1=${duration_1}&var-duration_2=${duration_2}&var-simulation=${simulation}&var-run=${__cell_1}&var-host=All&var-group1=All&var-group2=All&var-group3=All&var-request=All",
+          "linkUrl": "/d/gatling/gatling-report?time=${__cell}&time.window=${__cell_2}000&var-g=${__cell_3}s&var-duration_1=${duration_1}&var-duration_2=${duration_2}&var-simulation=${simulation}&var-run=${__cell_1}&var-host=All&var-group1=All&var-group2=All&var-group3=All&var-request=All",
           "mappingType": 1,
           "pattern": "Time",
           "rangeMaps": [
@@ -10516,5 +10516,5 @@
   "timezone": "browser",
   "title": "Grafana Report",
   "uid": "gatling",
-  "version": 4
+  "version": 5
 }
