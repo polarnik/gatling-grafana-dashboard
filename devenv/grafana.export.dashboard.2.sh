@@ -1,9 +1,11 @@
 #!/bin/sh -x
 
 # API-KEY Grafana, need change
-KEY="eyJrIjoiR3dsbXA0Szd1dEtudVNOdmF5YnM0dDlDeXN1bW9nY3UiLCJuIjoiVmlld2VyIiwiaWQiOjF9"
+KEY="eyJrIjoiN0ROVjhLS1l6bkJJNUx3eFQyeERvR1BxUzU0ZDQzMTEiLCJuIjoibmV3IiwiaWQiOjF9"
 # Grafana Dashboard UID, need change
-UID="gatlingTrend"
+UID="gatlingNew"
+UID_GIT="gatling"
+TITLE_GIT="Gatling Report"
 DIR="./provisioning/dashboards/json/"
 
 tmpFile=$(mktemp)
@@ -12,10 +14,10 @@ curl -H "Authorization: Bearer $KEY" \
      -o "$tmpFile"
 jq .dashboard "$tmpFile" > "$DIR/$UID.json"
 
-TITLE=`jq -r '.title' "$DIR/$UID.json"`
-jq --arg a "${TITLE} (GIT)" '.title = $a' "$DIR/$UID.json" > "$tmpFile"
+#TITLE=`jq -r '.title' "$DIR/$UID.json"`
+jq --arg a "${TITLE_GIT}" '.title = $a' "$DIR/$UID.json" > "$tmpFile"
 mv "$tmpFile" "$DIR/$UID.json"
-jq --arg a "${UID}_GIT" '.uid = $a' "$DIR/$UID.json" > "$tmpFile"
+jq --arg a "${UID_GIT}" '.uid = $a' "$DIR/$UID.json" > "$tmpFile"
 mv "$tmpFile" "$DIR/$UID.json"
 
 git add "$DIR/$UID.json"
