@@ -1,0 +1,258 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 8,
+  "iteration": 1592375377647,
+  "links": [],
+  "panels": [
+    {
+      "columns": [],
+      "datasource": "$ds",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "",
+          "linkUrl": "/d/gatling/gatling-report?time=${__cell}&time.window=${__cell_2}000s&var-run=${__cell_1}&var-simulation=${simulation}&var-loadstation=All",
+          "mappingType": 1,
+          "pattern": "Time",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \n    (last(\"duration\")*2+10) as \"Duration\" \nFROM\n    (SELECT \n         cumulative_sum(elapsed(last(\"count\"), 1s)) as \"duration\" \n     FROM \"$archive\".\"gatling\" \n     WHERE \n         (\"simulation\" =~ /^${simulation:regex}$/) AND \n          $timeFilter \n     GROUP BY time(1s),  \"run\"\n) \nGROUP BY \"run\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Panel Title",
+      "transform": "table",
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 22,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "tags": [],
+          "text": "Gatling_TCP",
+          "value": "Gatling_TCP"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "data source",
+        "multi": false,
+        "name": "ds",
+        "options": [],
+        "query": "influxdb",
+        "refresh": 1,
+        "regex": "/.*Gatling.*/i",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "autogen",
+          "value": "autogen"
+        },
+        "datasource": "$ds",
+        "definition": "SHOW RETENTION POLICIES",
+        "hide": 2,
+        "includeAll": false,
+        "index": -1,
+        "label": "Retention policy (archive)",
+        "multi": false,
+        "name": "archive",
+        "options": [],
+        "query": "SHOW RETENTION POLICIES",
+        "refresh": 1,
+        "regex": "/^autogen$/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "90d",
+          "value": "90d"
+        },
+        "datasource": "$ds",
+        "definition": "SHOW RETENTION POLICIES",
+        "hide": 2,
+        "includeAll": false,
+        "index": -1,
+        "label": "Retention policy (new)",
+        "multi": false,
+        "name": "new",
+        "options": [],
+        "query": "SHOW RETENTION POLICIES",
+        "refresh": 1,
+        "regex": "/^(?!$archive$).*$/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "openmodelrampusers2",
+          "value": "openmodelrampusers2"
+        },
+        "datasource": "$ds",
+        "definition": "SELECT DISTINCT(\"simulation\") FROM \n  (SELECT last(\"mean\") FROM \"$new\".\"gatling\" GROUP BY \"simulation\"),\n  (SELECT last(\"mean\") FROM \"$archive\".\"gatling\" GROUP BY \"simulation\")\nWHERE $timeFilter",
+        "hide": 0,
+        "includeAll": false,
+        "index": -1,
+        "label": "Simulation",
+        "multi": false,
+        "name": "simulation",
+        "options": [],
+        "query": "SELECT DISTINCT(\"simulation\") FROM \n  (SELECT last(\"mean\") FROM \"$new\".\"gatling\" GROUP BY \"simulation\"),\n  (SELECT last(\"mean\") FROM \"$archive\".\"gatling\" GROUP BY \"simulation\")\nWHERE $timeFilter",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "gatling",
+          "value": "gatling"
+        },
+        "hide": 2,
+        "label": "detail_report_uid",
+        "name": "detail_report_uid",
+        "options": [
+          {
+            "selected": true,
+            "text": "gatling",
+            "value": "gatling"
+          }
+        ],
+        "query": "gatling",
+        "skipUrlSync": false,
+        "type": "constant"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1y",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Grafana Table-Old Withlink",
+  "uid": "gatlingTrendLink",
+  "variables": {
+    "list": []
+  },
+  "version": 1
+}
