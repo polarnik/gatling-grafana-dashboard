@@ -3,9 +3,9 @@
 # API-KEY Grafana, need change
 KEY="eyJrIjoiN0ROVjhLS1l6bkJJNUx3eFQyeERvR1BxUzU0ZDQzMTEiLCJuIjoibmV3IiwiaWQiOjF9"
 # Grafana Dashboard UID, need change
-UID="gatlingNew"
-UID_GIT="gatling"
-TITLE_GIT="Gatling Report"
+UID="gatlingTrendWithLink"
+UID_GIT="gatlingTrendLink"
+TITLE_GIT="Grafana Table-Old Withlink"
 DIR="./provisioning/dashboards/json/"
 
 tmpFile=$(mktemp)
