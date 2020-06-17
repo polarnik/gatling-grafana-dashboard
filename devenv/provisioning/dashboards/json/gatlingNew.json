@@ -10514,7 +10514,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Gatling Report",
+  "title": "Grafana Report",
   "uid": "gatling",
   "version": 4
 }
