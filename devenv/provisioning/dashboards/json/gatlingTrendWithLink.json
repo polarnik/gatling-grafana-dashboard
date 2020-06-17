@@ -16,12 +16,18 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 8,
-  "iteration": 1592375377647,
+  "iteration": 1592392447756,
   "links": [],
   "panels": [
     {
       "columns": [],
       "datasource": "$ds",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fontSize": "100%",
       "gridPos": {
         "h": 8,
@@ -38,6 +44,7 @@
       },
       "styles": [
         {
+          "$$hashKey": "object:131",
           "alias": "",
           "align": "auto",
           "colorMode": null,
@@ -51,7 +58,7 @@
           "link": true,
           "linkTargetBlank": true,
           "linkTooltip": "",
-          "linkUrl": "/d/gatling/gatling-report?time=${__cell}&time.window=${__cell_2}000s&var-run=${__cell_1}&var-simulation=${simulation}&var-loadstation=All",
+          "linkUrl": "/d/gatling/gatling-report?time=${__cell}&time.window=${__cell_2}s&var-run=${__cell_1}&var-simulation=${simulation}&var-loadstation=All",
           "mappingType": 1,
           "pattern": "Time",
           "thresholds": [],
@@ -102,10 +109,10 @@
       "timeShift": null,
       "title": "Panel Title",
       "transform": "table",
-      "type": "table"
+      "type": "table-old"
     }
   ],
-  "schemaVersion": 22,
+  "schemaVersion": 25,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -139,7 +146,6 @@
         "definition": "SHOW RETENTION POLICIES",
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "Retention policy (archive)",
         "multi": false,
         "name": "archive",
@@ -165,7 +171,6 @@
         "definition": "SHOW RETENTION POLICIES",
         "hide": 2,
         "includeAll": false,
-        "index": -1,
         "label": "Retention policy (new)",
         "multi": false,
         "name": "new",
@@ -192,7 +197,6 @@
         "definition": "SELECT DISTINCT(\"simulation\") FROM \n  (SELECT last(\"mean\") FROM \"$new\".\"gatling\" GROUP BY \"simulation\"),\n  (SELECT last(\"mean\") FROM \"$archive\".\"gatling\" GROUP BY \"simulation\")\nWHERE $timeFilter",
         "hide": 0,
         "includeAll": false,
-        "index": -1,
         "label": "Simulation",
         "multi": false,
         "name": "simulation",
@@ -236,7 +240,6 @@
   },
   "timepicker": {
     "refresh_intervals": [
-      "5s",
       "10s",
       "30s",
       "1m",
@@ -251,8 +254,5 @@
   "timezone": "",
   "title": "Grafana Table-Old Withlink",
   "uid": "gatlingTrendLink",
-  "variables": {
-    "list": []
-  },
-  "version": 1
+  "version": 2
 }
