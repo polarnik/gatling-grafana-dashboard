@@ -23,3 +23,11 @@ datasources:
    database: gatling_tcp
    # <bool> allow users to edit datasources from the UI.
    editable: false
+   # <bool> enable/disable basic auth
+   basicAuth: true
+   # <string> basic auth username
+   basicAuthUser: readuser
+   # <string> json object of data that will be encrypted.
+   secureJsonData:
+     # <string> basic auth password
+     basicAuthPassword: password
